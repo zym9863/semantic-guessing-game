@@ -12,6 +12,7 @@ const elements = {
     newGameBtn: document.getElementById('new-game-btn'),
     hintBtn: document.getElementById('hint-btn'),
     giveUpBtn: document.getElementById('give-up-btn'),
+    statusIcon: document.querySelector('#status-card .status-icon'),
     statusMessage: document.getElementById('status-message'),
     attemptsCount: document.getElementById('attempts-count'),
     bestScore: document.getElementById('best-score'),
@@ -81,7 +82,9 @@ function hideLoading() {
  */
 function updateStatus(message, icon = '🎯') {
     elements.statusMessage.textContent = message;
-    elements.statusMessage.previousElementSibling.textContent = icon;
+    if (elements.statusIcon) {
+        elements.statusIcon.textContent = icon;
+    }
 }
 
 /**
