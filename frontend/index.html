@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>语义猜词 | Semantic Guess</title>
+    <meta name="description" content="基于Word2Vec的中文语义猜词游戏，通过语义相似度找到神秘词语">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="background-animation">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+    </div>
+    
+    <div class="container">
+        <header class="header">
+            <h1 class="title">
+                <span class="title-icon">🧠</span>
+                语义猜词
+            </h1>
+            <p class="subtitle">基于Word2Vec的中文语义猜词挑战</p>
+        </header>
+        
+        <main class="game-area">
+            <!-- 状态提示 -->
+            <div id="status-card" class="status-card">
+                <div class="status-icon">🎯</div>
+                <div class="status-text">
+                    <span id="status-message">点击"开始游戏"开始挑战</span>
+                </div>
+            </div>
+            
+            <!-- 游戏控制 -->
+            <div class="controls-card glass-card">
+                <div class="input-group">
+                    <input 
+                        type="text" 
+                        id="guess-input" 
+                        class="guess-input" 
+                        placeholder="输入你猜测的词语..."
+                        autocomplete="off"
+                        disabled
+                    >
+                    <button id="guess-btn" class="btn btn-primary" disabled>
+                        <span class="btn-text">猜测</span>
+                        <span class="btn-icon">→</span>
+                    </button>
+                </div>
+                <div class="action-buttons">
+                    <button id="new-game-btn" class="btn btn-success">
+                        <span class="btn-icon">🎮</span>
+                        <span class="btn-text">开始游戏</span>
+                    </button>
+                    <button id="hint-btn" class="btn btn-secondary" disabled>
+                        <span class="btn-icon">💡</span>
+                        <span class="btn-text">提示</span>
+                    </button>
+                    <button id="give-up-btn" class="btn btn-danger" disabled>
+                        <span class="btn-icon">🏳️</span>
+                        <span class="btn-text">放弃</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 统计信息 -->
+            <div class="stats-row">
+                <div class="stat-item glass-card">
+                    <div class="stat-value" id="attempts-count">0</div>
+                    <div class="stat-label">猜测次数</div>
+                </div>
+                <div class="stat-item glass-card">
+                    <div class="stat-value" id="best-score">-</div>
+                    <div class="stat-label">最高相似度</div>
+                </div>
+            </div>
+            
+            <!-- 猜测历史 -->
+            <div class="history-card glass-card">
+                <div class="history-header">
+                    <h2 class="history-title">📊 猜测历史</h2>
+                    <span class="history-hint">按相似度排序</span>
+                </div>
+                <div id="history-list" class="history-list">
+                    <div class="empty-state">
+                        <div class="empty-icon">🔍</div>
+                        <p>还没有猜测记录</p>
+                        <p class="empty-hint">开始游戏后，你的猜测将显示在这里</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- 游戏说明 -->
+        <aside class="info-card glass-card">
+            <h3 class="info-title">🎯 游戏规则</h3>
+            <ul class="info-list">
+                <li><strong>目标</strong>：猜出神秘词语</li>
+                <li><strong>提示</strong>：每次猜测会显示语义相似度（0-100分）</li>
+                <li><strong>策略</strong>：分数越高，说明你猜的词与答案在语义上越接近</li>
+                <li><strong>技巧</strong>：尝试不同类别的词语，缩小范围</li>
+            </ul>
+        </aside>
+        
+        <footer class="footer">
+            <p>Powered by <strong>Word2Vec</strong> 词向量技术</p>
+        </footer>
+    </div>
+    
+    <!-- 胜利弹窗 -->
+    <div id="win-modal" class="modal">
+        <div class="modal-content glass-card">
+            <div class="modal-icon">🎉</div>
+            <h2 class="modal-title">恭喜你猜对了！</h2>
+            <p class="modal-word">答案是：<strong id="answer-word">-</strong></p>
+            <p class="modal-stats">共猜测 <strong id="modal-attempts">0</strong> 次</p>
+            <button id="play-again-btn" class="btn btn-success btn-large">
+                <span class="btn-icon">🔄</span>
+                <span class="btn-text">再玩一局</span>
+            </button>
+        </div>
+    </div>
+    
+    <!-- 放弃弹窗 -->
+    <div id="giveup-modal" class="modal">
+        <div class="modal-content glass-card">
+            <div class="modal-icon">😔</div>
+            <h2 class="modal-title">游戏结束</h2>
+            <p class="modal-word">答案是：<strong id="giveup-answer-word">-</strong></p>
+            <p class="modal-stats">共猜测 <strong id="giveup-attempts">0</strong> 次</p>
+            <button id="try-again-btn" class="btn btn-success btn-large">
+                <span class="btn-icon">🔄</span>
+                <span class="btn-text">再试一次</span>
+            </button>
+        </div>
+    </div>
+    
+    <!-- 加载遮罩 -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <p id="loading-text">正在加载模型...</p>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
