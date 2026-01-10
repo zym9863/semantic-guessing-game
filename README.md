@@ -1,3 +1,5 @@
+[English](README-EN.md)
+
 # 语义猜词游戏
 
 基于 Word2Vec 的中文语义猜词游戏，类似于 Semantle。
