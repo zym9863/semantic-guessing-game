@@ -108,7 +108,8 @@ class SemanticGame:
             
         try:
             # 计算余弦相似度 (-1 to 1)
-            similarity = self.model.similarity(word, self.target_word)
+            # gensim / numpy 可能返回 numpy 标量（如 float32/float64），需转成原生 float 以便 JSON 序列化
+            similarity = float(self.model.similarity(word, self.target_word))
             # 转换为 0-100 分数
             score = max(0, (similarity + 1) / 2 * 100)
             return round(score, 2)
