@@ -612,7 +612,6 @@ body {
     height: 100%;
     border-radius: 3px;
     transition: width 0.5s ease;
-    box-shadow: 0 0 8px currentColor;
 }
 
 .history-score {
@@ -625,6 +624,7 @@ body {
 /* 分数颜色 */
 .score-high .history-bar-fill { 
     background: linear-gradient(90deg, var(--success) 0%, var(--success-light) 100%);
+    box-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
 }
 .score-high .history-score { 
     color: var(--success); 
@@ -633,6 +633,7 @@ body {
 
 .score-medium .history-bar-fill { 
     background: linear-gradient(90deg, var(--warning) 0%, var(--warning-light) 100%);
+    box-shadow: 0 0 8px rgba(245, 158, 11, 0.5);
 }
 .score-medium .history-score { 
     color: var(--warning);
@@ -641,6 +642,7 @@ body {
 
 .score-low .history-bar-fill { 
     background: linear-gradient(90deg, var(--danger) 0%, var(--danger-light) 100%);
+    box-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
 }
 .score-low .history-score { 
     color: var(--danger);
