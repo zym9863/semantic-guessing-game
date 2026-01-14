@@ -124,15 +124,19 @@ body {
 @keyframes float {
     0%, 100% {
         transform: translate(0, 0) scale(1);
+        opacity: 0.5;
     }
     25% {
         transform: translate(30px, -30px) scale(1.05);
+        opacity: 0.6;
     }
     50% {
         transform: translate(-20px, 20px) scale(0.95);
+        opacity: 0.4;
     }
     75% {
         transform: translate(-30px, -20px) scale(1.02);
+        opacity: 0.55;
     }
 }
 
@@ -238,6 +242,12 @@ body {
 
 .status-icon {
     font-size: 1.5rem;
+    transition: transform var(--transition-normal);
+    display: inline-block;
+}
+
+.status-card:hover .status-icon {
+    transform: scale(1.2) rotate(5deg);
 }
 
 .status-text {
@@ -341,7 +351,7 @@ body {
 }
 
 .btn:not(:disabled):active {
-    transform: translateY(0);
+    transform: translateY(1px) scale(0.98);
 }
 
 .btn-primary {
@@ -443,6 +453,12 @@ body {
     -webkit-text-fill-color: transparent;
     background-clip: text;
     margin-bottom: 0.25rem;
+    filter: drop-shadow(0 2px 4px rgba(99, 102, 241, 0.3));
+    transition: transform var(--transition-fast);
+}
+
+.stat-item:hover .stat-value {
+    transform: scale(1.05);
 }
 
 .stat-label {
@@ -605,14 +621,29 @@ body {
 }
 
 /* 分数颜色 */
-.score-high .history-bar-fill { background: var(--success); }
-.score-high .history-score { color: var(--success); }
+.score-high .history-bar-fill { 
+    background: linear-gradient(90deg, var(--success) 0%, #34d399 100%);
+}
+.score-high .history-score { 
+    color: var(--success); 
+    text-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
+}
 
-.score-medium .history-bar-fill { background: var(--warning); }
-.score-medium .history-score { color: var(--warning); }
+.score-medium .history-bar-fill { 
+    background: linear-gradient(90deg, var(--warning) 0%, #fbbf24 100%);
+}
+.score-medium .history-score { 
+    color: var(--warning);
+    text-shadow: 0 0 8px rgba(245, 158, 11, 0.5);
+}
 
-.score-low .history-bar-fill { background: var(--danger); }
-.score-low .history-score { color: var(--danger); }
+.score-low .history-bar-fill { 
+    background: linear-gradient(90deg, var(--danger) 0%, #f87171 100%);
+}
+.score-low .history-score { 
+    color: var(--danger);
+    text-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
+}
 
 /* 空状态 */
 .empty-state {
@@ -625,6 +656,16 @@ body {
     font-size: 3rem;
     margin-bottom: 1rem;
     opacity: 0.5;
+    animation: sway 3s ease-in-out infinite;
+}
+
+@keyframes sway {
+    0%, 100% {
+        transform: rotate(-5deg);
+    }
+    50% {
+        transform: rotate(5deg);
+    }
 }
 
 .empty-hint {
@@ -700,6 +741,8 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    font-weight: 600;
+    letter-spacing: 0.5px;
 }
 
 /* ============================================
