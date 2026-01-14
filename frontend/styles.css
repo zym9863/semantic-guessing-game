@@ -91,7 +91,7 @@ body {
     border-radius: 50%;
     filter: blur(100px);
     animation: float 20s ease-in-out infinite;
-    will-change: transform, opacity;
+    will-change: transform, opacity, filter;
 }
 
 .orb-1 {
@@ -206,6 +206,7 @@ body {
     font-size: 2rem;
     -webkit-text-fill-color: initial;
     animation: pulse 2s ease-in-out infinite;
+    will-change: transform;
 }
 
 @keyframes pulse {
@@ -658,6 +659,7 @@ body {
     margin-bottom: 1rem;
     opacity: 0.5;
     animation: sway 3s ease-in-out infinite;
+    will-change: transform;
 }
 
 @keyframes sway {
