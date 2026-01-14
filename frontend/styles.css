@@ -91,7 +91,7 @@ body {
     border-radius: 50%;
     filter: blur(100px);
     animation: float 20s ease-in-out infinite;
-    will-change: transform;
+    will-change: transform, opacity;
 }
 
 .orb-1 {
@@ -165,7 +165,7 @@ body {
     border-radius: var(--radius-lg);
     box-shadow: 0 8px 32px var(--glass-shadow),
                 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
-    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    transition: box-shadow var(--transition-fast);
 }
 
 /* ============================================
@@ -352,7 +352,7 @@ body {
 }
 
 .btn:not(:disabled):active {
-    transform: translateY(1px) scale(0.98);
+    transform: translateY(0) scale(0.98);
 }
 
 .btn-primary {
