@@ -91,7 +91,7 @@ body {
     border-radius: 50%;
     filter: blur(100px);
     animation: float 20s ease-in-out infinite;
-    will-change: transform, opacity, filter;
+    will-change: transform, opacity;
 }
 
 .orb-1 {
@@ -189,7 +189,6 @@ body {
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    letter-spacing: -0.02em;
     animation: titleGlow 3s ease-in-out infinite alternate;
 }
 
@@ -893,9 +892,9 @@ body {
     *,
     *::before,
     *::after {
-        animation-duration: 0.01ms !important;
+        animation-duration: 0.001s !important;
         animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
+        transition-duration: 0.001s !important;
     }
     
     .gradient-orb {
