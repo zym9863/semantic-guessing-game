@@ -888,6 +888,28 @@ body {
    响应式
    ============================================ */
 
+/* 减少动画偏好 */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .gradient-orb {
+        animation: none;
+        opacity: 0.3;
+    }
+    
+    .title,
+    .title-icon,
+    .empty-icon {
+        animation: none;
+    }
+}
+
 @media (max-width: 600px) {
     .container {
         padding: 1rem;
